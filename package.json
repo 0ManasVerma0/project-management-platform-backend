@@ -1,0 +1,26 @@
+{
+  "name": "project-management-platform-backend",
+  "version": "1.0.0",
+  "description": "a project management application's backend",
+  "keywords": [
+    "learning"
+  ],
+  "homepage": "https://github.com/0ManasVerma0/project-management-platform-backend#readme",
+  "bugs": {
+    "url": "https://github.com/0ManasVerma0/project-management-platform-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0ManasVerma0/project-management-platform-backend.git"
+  },
+  "license": "ISC",
+  "author": "manas verma",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.8.1"
+  }
+}
