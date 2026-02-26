@@ -1,4 +1,5 @@
 import mongoose, {mongo, Schema} from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
 
@@ -68,6 +69,20 @@ const UserSchema = new Schema({
 {
     timestamps: true
 })
+
+//defining a pre hook
+//pre hook => this runs just before saving the schema data in database
+UserSchema.pre("save", async function(next){
+    if(!this.isModified("password")) return next()  //this will save from the cases where password is not changed
+
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+})
+
+//In this way you can define methods in mongoose
+UserSchema.methods.isPassword = async function(password){
+    return await bcrypt.compare(password, this.password)
+}
 
 export const User = mongoose.model("User", UserSchema)
 
