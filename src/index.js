@@ -1,11 +1,13 @@
 import dotenv from "dotenv"
+import app from "./app.js"
 dotenv.config({
     path: "./.env",
 })
 
-let myUsername = process.env.test;  
-console.log(myUsername);
+const port = process.env.PORT || 3000
 
-console.log("start of backend");
-console.log("testing nodemon");
+
+app.listen(port, () => {
+    console.log(`listening to port : http://localhost:${port}`) 
+})
 
