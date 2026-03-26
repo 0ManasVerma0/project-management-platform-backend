@@ -74,11 +74,11 @@ const UserSchema = new Schema({
 
 //defining a pre hook
 //pre hook => this runs just before saving the schema data in database
-UserSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next()  //this will save from the cases where password is not changed
+UserSchema.pre("save", async function () {
+    // With async middleware, do not call next(); return early instead.
+    if (!this.isModified("password")) return
 
     this.password = await bcrypt.hash(this.password, 10)
-    next()
 })
 
 //In this way you can define methods in mongoose
