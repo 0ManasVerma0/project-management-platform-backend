@@ -9,11 +9,11 @@ const generateAccessAndRefreshToken = async (userId) => {
     try {
         const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
-        const refrestToken = user.generateRefreshToken()
+        const refreshToken = user.generateRefreshToken()
 
-        user.refreshToken = refrestToken
+        user.refreshToken = refreshToken
         await user.save({validateBeforeSave: false})
-        return {accessToken, refrestToken}
+        return {accessToken, refreshToken}
 
     } catch (error) {
         throw new apiError(
@@ -111,7 +111,7 @@ const login = asyncHandler(async (req, res) => {
                 {
                     user: looggedInUser,
                     accessToken,
-                    refreshToken
+                    refreshToken,
                 },
                 "User logged in Successfully"
             )

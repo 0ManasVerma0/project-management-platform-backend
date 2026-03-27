@@ -82,7 +82,7 @@ UserSchema.pre("save", async function () {
 })
 
 //In this way you can define methods in mongoose
-UserSchema.methods.isPassword = async function (password) {
+UserSchema.methods.isPasswordValid = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
