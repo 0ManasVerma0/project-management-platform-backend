@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import {AvailableUserRole} from "../utils/constants.js"
+import {AvailableUserRole, AvailableTaskStatuses} from "../utils/constants.js"
 
 const userRegisterValidator = () => {
     return [
@@ -51,4 +51,34 @@ const addMembersToProjectValidator = () => {
     ]
 }
 
-export {userRegisterValidator, userLoginValidator, userChangeCurrentPasswordValidator, userForgotPasswordValidator, userResetForgotPasswordValidator, createProjectValidator, addMembersToProjectValidator}
+const createTaskValidator = () => {
+    return [
+        body("title").trim().notEmpty().withMessage("Title is Required"),
+        body("description").optional().trim(),
+        body("assignedTo").optional().isMongoId().withMessage("Invalid assignedTo user id"),
+        body("status").optional().isIn(AvailableTaskStatuses).withMessage("Invalid task status")
+    ]
+}
+
+const updateTaskValidator = () => {
+    return [
+        body("title").optional().trim().notEmpty().withMessage("Title cannot be empty"),
+        body("description").optional().trim(),
+        body("status").optional().isIn(AvailableTaskStatuses).withMessage("Invalid task status")
+    ]
+}
+
+const createSubtaskValidator = () => {
+    return [
+        body("title").trim().notEmpty().withMessage("Subtask title is Required")
+    ]
+}
+
+const updateSubtaskValidator = () => {
+    return [
+        body("title").optional().trim().notEmpty().withMessage("Title cannot be empty"),
+        body("isCompleted").optional().isBoolean().withMessage("isCompleted must be a boolean")
+    ]
+}
+
+export {userRegisterValidator, userLoginValidator, userChangeCurrentPasswordValidator, userForgotPasswordValidator, userResetForgotPasswordValidator, createProjectValidator, addMembersToProjectValidator, createTaskValidator, updateTaskValidator, createSubtaskValidator, updateSubtaskValidator}
